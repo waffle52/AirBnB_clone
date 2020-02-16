@@ -18,6 +18,12 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key is '__class__':
                     pass
+                elif key is 'created_at':
+                    value = datetime.today()
+                    setattr(self, key, value)
+                elif key is 'updated_at':
+                    value = datetime.today()
+                    setattr(self, key, value)
                 else:
                     setattr(self, key, value)
 

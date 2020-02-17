@@ -2,7 +2,6 @@
 """ JavaScript Object Notation """
 import json
 from models.base_model import BaseModel
-import models.__init__
 
 
 class FileStorage:
@@ -14,7 +13,7 @@ class FileStorage:
         return self.__objects
 
     def new(self, obj):
-        obj = self.__object[key]
+        self.__objects['obj.__class__.__name__.id'] = obj.__dict__
 
     def save(self):
         my_dict = {}
@@ -22,7 +21,7 @@ class FileStorage:
         for key, value in self.__objects.items():
             setattr(self, key, value)
 
-        with open(self.__file_path, 'w') as jfile:
+        with open(self.__file_path, 'w+') as jfile:
             json.dumps(my_dict, jfile)
 
     def reload(self):

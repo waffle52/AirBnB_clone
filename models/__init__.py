@@ -1,4 +1,6 @@
 #!/usr/bin/python3
-import json
-import uuid
 from datetime import date
+from models.engine.file_storage import FileStorage
+
+storage = FileStorage()
+storage.reload()

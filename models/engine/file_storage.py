@@ -13,16 +13,17 @@ class FileStorage:
         return self.__objects
 
     def new(self, obj):
-        self.__objects['obj.__class__.__name__.id'] = obj.__dict__
+        get_key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        self.__objects[get_key] = obj
 
     def save(self):
         my_dict = {}
 
         for key, value in self.__objects.items():
-            setattr(self, key, value)
+            my_dict[key] = value.to_dict()
 
-        with open(self.__file_path, 'w+') as jfile:
-            json.dumps(my_dict, jfile)
+        with open(self.__file_path, 'a+') as jfile:
+            json.dump(my_dict, jfile)
 
     def reload(self):
         if (self.__objects):

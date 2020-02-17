@@ -2,6 +2,7 @@
 from datetime import datetime
 import uuid
 import json
+import models
 """ BaseModel python file """
 
 
@@ -14,15 +15,14 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.today()
             self.updated_at = datetime.today()
+            models.storage.new(self)
+
         else:
             for key, value in kwargs.items():
-                if key is '__class__':
+                if key is '__class__' :
                     pass
-                elif key is 'created_at':
-                    value = datetime.today()
-                    setattr(self, key, value)
-                elif key is 'updated_at':
-                    value = datetime.today()
+                elif key is 'created_at' or key is 'updated_at':
+                    value = datetime.strptime(value,'%Y-%m-%dT%H:%M:%S.%f')
                     setattr(self, key, value)
                 else:
                     setattr(self, key, value)
@@ -35,6 +35,7 @@ class BaseModel:
     def save(self):
         """ func to update time """
         self.updated_at = datetime.today()
+        models.storage.save()
 
     def to_dict(self):
         """ func to createa dictionary of of class elements """

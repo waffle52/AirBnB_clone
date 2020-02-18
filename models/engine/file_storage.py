@@ -22,13 +22,12 @@ class FileStorage:
         for key, value in self.__objects.items():
             my_dict[key] = value.to_dict()
 
-        with open(self.__file_path, 'a+') as jfile:
+        with open(self.__file_path, 'w') as jfile:
             json.dump(my_dict, jfile)
 
     def reload(self):
-        if (self.__objects):
-            with open(jfile, 'r') as file:
-                json_object = json.load(file)
+        with open(self.__file_path, 'r') as lfile:
+            self.__objects = json.load(lfile)
 
-            for key, value in json_object.items():
-                setattr(self, key, value)
+        for key, value in self.__objects.items():
+            self.__objects.append(eval(cls +'(**v)'))

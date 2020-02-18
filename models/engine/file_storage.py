@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 """ JavaScript Object Notation """
 import json
+import os.path
 from models.base_model import BaseModel
 
 
 class FileStorage:
     """ Class FileStorage """
     __file_path = "file.json"
-    __objects = {}
+    __objects =  {}
 
     def all(self):
         return self.__objects
@@ -26,8 +27,7 @@ class FileStorage:
             json.dump(my_dict, jfile)
 
     def reload(self):
-        with open(self.__file_path, 'r') as lfile:
-            self.__objects = json.load(lfile)
-
-        for key, value in self.__objects.items():
-            self.__objects.append(eval(cls +'(**v)'))
+        if (os.path.isfile(self.__file_path)):
+            with open(self.__file_path, 'r') as f:
+                for key, value in json.load(f).items():
+                    self.__objects[key] = eval(key.split('.')[0])(**value)

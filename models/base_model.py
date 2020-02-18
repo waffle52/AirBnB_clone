@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 from datetime import datetime
 import uuid
-import json
 import models
 """ BaseModel python file """
 
@@ -16,16 +15,15 @@ class BaseModel:
             self.created_at = datetime.today()
             self.updated_at = datetime.today()
             models.storage.new(self)
+            #self.save()
 
         else:
             for key, value in kwargs.items():
-                if key is '__class__' :
-                    pass
-                elif key is 'created_at' or key is 'updated_at':
+                if key == '__class__' :
+                    continue
+                elif key == 'created_at' or key == 'updated_at':
                     value = datetime.strptime(value,'%Y-%m-%dT%H:%M:%S.%f')
-                    setattr(self, key, value)
-                else:
-                    setattr(self, key, value)
+                setattr(self, key, value)
 
     def __str__(self):
         """ return string with info on class """
@@ -38,9 +36,9 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-        """ func to createa dictionary of of class elements """
+        """ func to create a dictionary of class elements """
         mydict = dict(self.__dict__)
-        mydict.update({"__class__": "BaseModel"})
+        mydict.update({"__class__": str(type(self).__name__)})
         created = mydict.get("created_at").strftime("%Y-%m-%dT%H:%M:%S.%f")
         mydict.update({"created_at": created})
         update = mydict.get("updated_at").strftime("%Y-%m-%dT%H:%M:%S.%f")

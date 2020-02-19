@@ -3,5 +3,5 @@
 
 
 class State(BaseModel):
-
+    """ states class """
     name = ""

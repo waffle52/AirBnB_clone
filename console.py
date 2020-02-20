@@ -23,7 +23,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         pass
 
-    """def do_create(self, arg):
+    def do_create(self, arg):
         'Create BaseModel instance'
         if arg == "":
             print("** class name missing **")
@@ -32,50 +32,54 @@ class HBNBCommand(cmd.Cmd):
         else:
             my_model = BaseModel()
             print(my_model.id)
-            my_model.save()"""
+            my_model.save()
 
-    """def do_show(self, arg):
+    def do_show(self, arg):
         new_list = shlex.split(arg)
-        all_objs = storage.all()
-        if new_list[0] == "":
+        if len(new_list) < 1:
             print ("** class name missing **")
-        elif new_list[1] == "":
+        elif len(new_list) < 2:
             print ("** instance id missing **")
-        elif id != "":
-            print ("** no instance found **")
-        elif id != "":
-            print ("** class doesn't exist **")
         else:
             all_objs = storage.all()
-            word = arg + id
-            obj_id = all_objs[word]
-            print ("test: {}".format(obj_id))"""
+            word = str(new_list[0] + "." + new_list[1])
+            cls = False
+            ide = False
+            for obj_id in all_objs.keys():
+                if (new_list[0] == obj_id.split(".")[0]):
+                    cls = True
+                    if (new_list[1] == obj_id.split(".")[1]):
+                        ide = True
+                        print (all_objs[obj_id])
+                        break
+            if (cls is False):
+                print ("** class doesn't exist **")
+            elif (ide is False):
+                print (" ** no instance found **")
 
-    """def do_destroy(self, arg):
-        #num = dict(arg.split(" "))
-        #arg = arg.split(" ")[0]
-        print("test: {}".format(num))
-        if arg == "" or arg is None:
+    def do_destroy(self, arg):
+        new_list = shlex.split(arg)
+        if len(new_list) < 1:
             print ("** class name missing **")
-        elif num == "":
+        elif len(new_list) < 2:
             print ("** instance id missing **")
-        all_objs = storage.all()
-        cls = False
-        ide = False
-        for obj_id in all_objs.keys():
-            if (arg == obj_id.split(".")):
-                cls = True
-                if (num == obj_id.split(".")[1]):
-                    ide = True
-                    del all_objs[obj_id]
-                    my_model.save()
-        if (cls == False):
-            print ("** class doesn't exist **")
-        elif (ide == False):
-            print ("** no instance found **")
-        """
+        else:
+            all_objs = storage.all()
+            cls = False
+            ide = False
+            for obj_id in all_objs.keys():
+                if (new_list[0] == obj_id.split(".")[0]):
+                    cls = True
+                    if (new_list[1] == obj_id.split(".")[1]):
+                        ide = True
+                        del all_objs[obj_id]
+                        break
+            if (cls == False):
+                print ("** class doesn't exist **")
+            elif (ide == False):
+                print ("** no instance found **")
 
-    """def do_all(self, arg):
+    def do_all(self, arg):
         if arg != "":
             truth = True
             all_objs = storage.all()
@@ -91,15 +95,45 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("\"]")
         else:
+            i = 0
             all_objs = storage.all()
             print("[\"", end="")
             for obj_id in all_objs.keys():
                 obj = all_objs[obj_id]
                 print(obj, end="")
-            print("\"]")"""
+                if (i + 1 < len(all_objs.keys())):
+                    print ("\", \"", end="")
+                i += 1
+            print("\"]")
 
     """def do_update(self, arg):
-       """
+        my_list = shlex.split(arg)
+        if (len(my_list) < 1):
+            print ("** class name missing **")
+        elif (len(my_list) < 2):
+            print ("** instance id missing **")
+        elif (len(my_list) < 3):
+            print ("** attribute name missing **")
+        elif (len(my_list) < 4):
+            print ("** value missing **")
+        else:
+            cls = False
+            ide = False
+            all_objs = storage.all()
+            for obj_id in all_objs.keys():
+                obj = all_objs[obj_id]
+                if (my_list[0] == obj_id.split(".")[0]):
+                    cls = True
+                    if (my_list[1] == obj_id.split(".")[1]):
+                        ide = True
+                        print ("testing: {}".format())
+                        #my_model = BaseClass()
+                        #my_model.save()
+                        break
+            if (cls is False):
+                print ("** class doesn't exist **")
+            elif (ide is False):
+                print ("** no instance found **")"""
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

@@ -37,9 +37,9 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, arg):
         new_list = shlex.split(arg)
         if len(new_list) < 1:
-            print ("** class name missing **")
+            print("** class name missing **")
         elif len(new_list) < 2:
-            print ("** instance id missing **")
+            print("** instance id missing **")
         else:
             all_objs = storage.all()
             word = str(new_list[0] + "." + new_list[1])
@@ -50,47 +50,47 @@ class HBNBCommand(cmd.Cmd):
                     cls = True
                     if (new_list[1] == obj_id.split(".")[1]):
                         ide = True
-                        print (all_objs[obj_id])
+                        print(all_objs[obj_id])
                         break
-            if (cls is False):
-                print ("** class doesn't exist **")
-            elif (ide is False):
-                print (" ** no instance found **")
+            if(cls is False):
+                print("** class doesn't exist **")
+            elif(ide is False):
+                print(" ** no instance found **")
 
     def do_destroy(self, arg):
         new_list = shlex.split(arg)
         if len(new_list) < 1:
-            print ("** class name missing **")
+            print("** class name missing **")
         elif len(new_list) < 2:
-            print ("** instance id missing **")
+            print("** instance id missing **")
         else:
             all_objs = storage.all()
             cls = False
             ide = False
             for obj_id in all_objs.keys():
-                if (new_list[0] == obj_id.split(".")[0]):
+                if(new_list[0] == obj_id.split(".")[0]):
                     cls = True
-                    if (new_list[1] == obj_id.split(".")[1]):
+                    if(new_list[1] == obj_id.split(".")[1]):
                         ide = True
                         del all_objs[obj_id]
                         break
-            if (cls == False):
-                print ("** class doesn't exist **")
-            elif (ide == False):
-                print ("** no instance found **")
+            if(cls is False):
+                print("** class doesn't exist **")
+            elif(ide is False):
+                print("** no instance found **")
 
     def do_all(self, arg):
         if arg != "":
             truth = True
             all_objs = storage.all()
             for obj_id in all_objs.keys():
-                if (arg in obj_id.split(".")):
-                    if (truth is True):
+                if(arg in obj_id.split(".")):
+                    if(truth is True):
                         print("[\"", end="")
                     obj = all_objs[obj_id]
                     print(obj, end="")
                     truth = False
-            if (truth is True):
+            if(truth is True):
                 print("** class doesn't exist **")
             else:
                 print("\"]")
@@ -101,8 +101,8 @@ class HBNBCommand(cmd.Cmd):
             for obj_id in all_objs.keys():
                 obj = all_objs[obj_id]
                 print(obj, end="")
-                if (i + 1 < len(all_objs.keys())):
-                    print ("\", \"", end="")
+                if(i + 1 < len(all_objs.keys())):
+                    print("\", \"", end="")
                 i += 1
             print("\"]")
 
@@ -119,17 +119,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             cls = False
             ide = False
-            all_objs = storage.all()
-            for obj_id in all_objs.keys():
-                obj = all_objs[obj_id]
-                if (my_list[0] == obj_id.split(".")[0]):
-                    cls = True
-                    if (my_list[1] == obj_id.split(".")[1]):
-                        ide = True
-                        print ("testing: {}".format())
-                        #my_model = BaseClass()
-                        #my_model.save()
-                        break
+            my_model = BaseModel()
+            my_model.save
             if (cls is False):
                 print ("** class doesn't exist **")
             elif (ide is False):

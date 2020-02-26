@@ -106,7 +106,7 @@ class HBNBCommand(cmd.Cmd):
                 i += 1
             print("\"]")
 
-    """def do_update(self, arg):
+    def do_update(self, arg):
         my_list = shlex.split(arg)
         if (len(my_list) < 1):
             print ("** class name missing **")
@@ -117,14 +117,21 @@ class HBNBCommand(cmd.Cmd):
         elif (len(my_list) < 4):
             print ("** value missing **")
         else:
+            all_objs1 = storage.all()
+            word = str(my_list[0] + "." + my_list[1])
             cls = False
             ide = False
-            my_model = BaseModel()
-            my_model.save
+            for obj_id in all_objs1.keys():
+                if (my_list[0] == obj_id.split(".")[0]):
+                    cls = True
+                    if (my_list[1] == obj_id.split(".")[1]):
+                        ide = True
+                        all_objs1.__init__(**my_list)
+                        break
             if (cls is False):
                 print ("** class doesn't exist **")
             elif (ide is False):
-                print ("** no instance found **")"""
+                print ("** no instance found **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

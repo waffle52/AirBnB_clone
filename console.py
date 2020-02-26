@@ -35,6 +35,7 @@ class HBNBCommand(cmd.Cmd):
             my_model.save()
 
     def do_show(self, arg):
+        """ show  """
         new_list = shlex.split(arg)
         if len(new_list) < 1:
             print("** class name missing **")
@@ -58,6 +59,7 @@ class HBNBCommand(cmd.Cmd):
                 print(" ** no instance found **")
 
     def do_destroy(self, arg):
+        """ destroy information """
         new_list = shlex.split(arg)
         if len(new_list) < 1:
             print("** class name missing **")
@@ -107,6 +109,7 @@ class HBNBCommand(cmd.Cmd):
             print("\"]")
 
     def do_update(self, arg):
+        """ Update information """
         my_list = shlex.split(arg)
         if (len(my_list) < 1):
             print ("** class name missing **")
@@ -126,7 +129,8 @@ class HBNBCommand(cmd.Cmd):
                     cls = True
                     if (my_list[1] == obj_id.split(".")[1]):
                         ide = True
-                        all_objs1.__init__(**my_list)
+                        d = {my_list[2] : my_list[3]}
+                        all_objs1[obj_id].__init__(**d)
                         break
             if (cls is False):
                 print ("** class doesn't exist **")

@@ -21,6 +21,7 @@
 .amenities {
     float: left;
     font-width: 25%;
+    position: relative;
 }
 
 h3 {
@@ -35,12 +36,29 @@ h3 {
 }
 
 ul {
-    display: none;
-    margin: 0;
+    list-style-type: none;
+    color: black;
 }
 
-.locations:hover {
-    .popover {
-	display: contents;
-    }
+.amenities:hover .popover {
+    visibility: visible;
+}
+
+.locations:hover .popover {
+    visibility: visible;
+}
+
+.popover {
+    background-color: #FAFAFA;
+    width: 100%;
+    position: absolute;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    visibility: hidden;
+    margin-top: 15px;
+    margin-bottom: 0px;
+    height: auto;
+    width: 269px;
+    left: 0;
+    padding-left: 30px;
 }
